@@ -1,0 +1,19 @@
+# Cahier de lecture (Apache 2.4).
+#
+# Seuls index.php, api.php et admin.php répondent. Rien d'autre n'est servi tel quel (app/,
+# lib/, tools/, vendor/, data/, config.local.php, composer.*). Le refus tient même sans
+# mod_rewrite ; avec lui, toute autre adresse affiche l'application.
+DirectoryIndex index.php
+Options -Indexes
+
+# Tout fichier autre que ces trois pages est refusé. Le test porte sur les fichiers qui
+# existent (-f) : l'adresse du dossier lui-même, qui mène à index.php, reste permise.
+<If "-f %{REQUEST_FILENAME} && %{REQUEST_FILENAME} !~ m#/(index|api|admin)\.php$#">
+    Require all denied
+</If>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(index|api|admin)\.php$ - [L]
+    RewriteRule ^ index.php [L]
+</IfModule>

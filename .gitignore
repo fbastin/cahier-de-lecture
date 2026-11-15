@@ -1,0 +1,10 @@
+# Propres à chaque installation : réglages, clés d'API, données, dépendances, page compilée
+server/config.local.php
+server/data/
+server/vendor/
+server/app/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
